@@ -97,7 +97,7 @@ multiProps = go []
         go acc (ScalarProperty t _:ps) = do !x <- parseScalar t
                                             skipSpace
                                             go (x:acc) ps
-        go _ (ListProperty t _:_) = int <* skipSpace >>= flip count (parseScalar t)
+        go _ (ListProperty t _:_) = int >>= flip count (skipSpace *> parseScalar t)
 
 -- FIXME: Support for list properties assumes that an element will not
 -- have any other properties if it has a list property!
